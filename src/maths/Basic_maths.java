@@ -60,7 +60,7 @@ public class Basic_maths {
             }
         }
     }
-
+    //program for checking prime numbers
     static boolean checkPrime(int n) {
         int counter = 0;
         for (int i = 1; i*i <= n; i++) {
@@ -74,6 +74,16 @@ public class Basic_maths {
         return counter == 2;
     }
 
+    //Program to find GCD or HCF using euclidean algorithm
+    static void gcd(int a, int b){
+        while (a > 0 && b > 0){
+            if (a > b) a = a%b;
+            else b = b%a;
+        }
+        if (a == 0) System.out.println(b);
+        else System.out.println(a);
+    }
+
 
 
     public static void main(String[] args) {
@@ -83,6 +93,7 @@ public class Basic_maths {
 //        System.out.println(checkArmstrong(153));
 //        printAllDivisors(36);
 //        System.out.println(checkPrime(4));
+//        gcd(20,40);
 
     }
 
