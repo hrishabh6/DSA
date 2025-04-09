@@ -65,6 +65,24 @@ public class Reccursions {
         return reverseArray(i+1,arr, n);
     }
 
+    //check for a palindrome string
+    static boolean checkPalindrome(int i, String str){
+        int len = str.length();
+        if (i > len/2) return true;
+
+        if (str.charAt(i) != str.charAt(len - i - 1) ) return false;
+
+        return checkPalindrome(i+1, str);
+
+    }
+    static boolean checkPalindrome(String str){
+        return checkPalindrome(0, str);
+    }
+
+    static int fibonacci(int n){
+        if (n<= 1) return n;
+        return fibonacci(n-1) + fibonacci(n-2);
+    }
 
     public static void main(String[] args) {
 //        recursiveMethod(1);
@@ -79,6 +97,7 @@ public class Reccursions {
 //        for (int i = 0; i < arr.length; i++) {
 //            System.out.println(arr[i]);
 //        }
-
-    }
+//        System.out.println(checkPalindrome("Madam"));
+//        System.out.println(fibonacci(5));
+    }   
 }
