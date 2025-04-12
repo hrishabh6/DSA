@@ -4,7 +4,7 @@ import recurrsion.Reccursions;
 
 import java.util.Scanner;
 
-public class Array_2 {
+public class Sorting_2 {
 
     static void merge(int[] arr, int low, int high, int mid) {
         int[] newArr = new int[high - low + 1];
