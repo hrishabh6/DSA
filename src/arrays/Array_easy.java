@@ -2,7 +2,7 @@ package arrays;
 
 import recurrsion.Reccursions;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Array_easy {
     //largest element in an array
@@ -97,6 +97,77 @@ public class Array_easy {
         }
     }
 
+    static int linearSearch(int[] arr, int n){
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == n) return i;
+        }
+        return -1;
+    }
+
+    static int[] union(int[] arr1, int[] arr2) {
+        int size = Math.min(arr1.length, arr2.length);
+        int i = 0;
+        int[] newArr = new int[arr1.length + arr2.length];
+        int arr1ptr = 0, arr2ptr = 0;
+        while(arr1ptr < arr1.length && arr2ptr < arr2.length){
+            if (arr1[arr1ptr] == arr2[arr2ptr]) {
+                newArr[i] = arr1[arr1ptr];
+                i++;
+                arr1ptr++;
+                arr2ptr++;
+            } else if(arr1[arr1ptr] < arr2[arr2ptr]){
+                newArr[i] = arr1[arr1ptr];
+                i++;
+                arr1ptr++;
+            } else if (arr1[arr1ptr] > arr2[arr2ptr]) {
+                newArr[i] = arr2[arr2ptr];
+                i++;
+                arr2ptr++;
+            }
+        }
+        while(arr1ptr < arr1.length){
+            if (arr1ptr == 0 || arr1[arr1ptr] != arr1[arr1ptr - 1])
+            {
+                newArr[i] = arr1[arr1ptr];
+                System.out.println("First While executed");
+                arr1ptr++;
+                i++;
+            } else {
+                arr1ptr++;
+            }
+        }
+        while(arr2ptr < arr2.length){
+            if (arr2ptr == 0 || arr2[arr2ptr] != arr2[arr2ptr - 1])
+            {
+                newArr[i] = arr2[arr2ptr];
+                System.out.println("Second While executed");
+                arr2ptr++;
+                i++;
+            } else {
+                arr2ptr++;
+            }
+        }
+        return Arrays.copyOf(newArr, i);
+    }
+
+    static List<Integer> intersection(int[] arr1, int[] arr2){
+        int ptr1 = 0, ptr2 = 0, i = 0;
+        List<Integer> result = new ArrayList<>();
+        while(ptr1 < arr1.length && ptr2 < arr2.length){
+            if (arr1[ptr1] == arr2[ptr2]){
+                result.add(arr1[ptr1]);
+                ptr1++;
+                ptr2++;
+            } else if (arr1[ptr1] < arr2[ptr2]) {
+                ptr1++;
+            } else {
+                ptr2++;
+            }
+        }
+        return result;
+
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -104,10 +175,15 @@ public class Array_easy {
         int input = sc.nextInt();
 
         int[] arr = new int[input];
+        int[] arr2 = new int[7];
 
         for (int i = 0; i < input; i++) {
             System.out.print("Enter the " + (i+1) + " Element : ");
             arr[i] = sc.nextInt();
+        }
+        for (int i = 0; i < 7; i++) {
+            System.out.print("Enter the " + (i+1) + " Element for second array : ");
+            arr2[i] = sc.nextInt();
         }
 
 //        System.out.println("The largest element is : " + largestElement(arr));
@@ -116,8 +192,18 @@ public class Array_easy {
 //        System.out.println(uniqueElements(arr));
 //        rotateArray(arr);
 //        rotateByD(arr, 5);
-        shiftAllZeroes(arr);
+//        shiftAllZeroes(arr);
+//        System.out.println(linearSearch(arr, 10));
+//        int[] newArray = union(arr, arr2);
+        List<Integer> result = intersection(arr, arr2);
+
+
+
         for (int j : arr) {
+            System.out.print(j + " ");
+        }
+        System.out.println();
+        for (int j : result) {
             System.out.print(j + " ");
         }
     }
