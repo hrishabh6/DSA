@@ -168,6 +168,85 @@ public class Array_easy {
 
     }
 
+    static int missingNumber(int[] arr){
+        int xor1 = 0;
+        int xor2 = 0;
+
+        for (int i = 0; i < arr.length-1; i++) {
+            xor1 = xor1^arr[i];
+            xor2 = xor2 ^(i+1);
+        }
+        xor2 = xor2 ^ arr.length;
+        return xor1^xor2;
+    }
+
+    static int maximumOnes(int[] arr){
+        int maximum = 0, counter = 0;
+        for (int j : arr) {
+            if (j != 0) {
+                counter++;
+            } else {
+                if (counter > maximum) maximum = counter;
+                counter = 0;
+            }
+        }
+        return maximum;
+    }
+
+    static int numberAppearingTwice(int[] arr){
+        int xor = 0;
+        for (int j : arr) {
+            xor = xor ^ j;
+        }
+        return xor;
+    }
+
+    static int maximumSubarray(int[] a, long k) {
+        Map<Long, Integer> preSumMap = new HashMap<>();
+        long sum = 0;
+        int maxLen = 0;
+
+        for (int i = 0; i < a.length; i++) {
+            sum += a[i];
+
+            // Case 1: entire prefix sum equals k
+            if (sum == k) {
+                maxLen = Math.max(maxLen, i + 1);
+            }
+
+            // Case 2: check if (sum - k) has occurred before
+            long rem = sum - k;
+            if (preSumMap.containsKey(rem)) {
+                int len = i - preSumMap.get(rem);
+                maxLen = Math.max(maxLen, len);
+            }
+
+            // Case 3: store the first occurrence of sum
+            if (!preSumMap.containsKey(sum)) {
+                preSumMap.put(sum, i);
+            }
+        }
+
+        return maxLen;
+    }
+
+    static int twoPointers(int[] arr, int k){
+        int left = 0, right = 0, sum = arr[0], maxlen = 0;
+        while(right < arr.length){
+            while (sum > k){
+                sum -= arr[left];
+                left++;
+            }
+            if (sum == k){
+                maxlen = Math.max(maxlen, right-left+1);
+            }
+            right++;
+            if (right < arr.length) sum += arr[right];
+        }
+        return maxlen;
+    }
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -175,16 +254,16 @@ public class Array_easy {
         int input = sc.nextInt();
 
         int[] arr = new int[input];
-        int[] arr2 = new int[7];
+//        int[] arr2 = new int[7];
 
         for (int i = 0; i < input; i++) {
             System.out.print("Enter the " + (i+1) + " Element : ");
             arr[i] = sc.nextInt();
         }
-        for (int i = 0; i < 7; i++) {
-            System.out.print("Enter the " + (i+1) + " Element for second array : ");
-            arr2[i] = sc.nextInt();
-        }
+//        for (int i = 0; i < 7; i++) {
+//            System.out.print("Enter the " + (i+1) + " Element for second array : ");
+//            arr2[i] = sc.nextInt();
+//        }
 
 //        System.out.println("The largest element is : " + largestElement(arr));
 //        System.out.println("The Second largest element is : " + secondLargest(arr));
@@ -195,16 +274,22 @@ public class Array_easy {
 //        shiftAllZeroes(arr);
 //        System.out.println(linearSearch(arr, 10));
 //        int[] newArray = union(arr, arr2);
-        List<Integer> result = intersection(arr, arr2);
+//        List<Integer> result = intersection(arr, arr2);
+//        System.out.println(missingNumber(arr));
+//        System.out.println(maximumOnes(arr));
+//        System.out.println(numberAppearingTwice(arr));
+//        System.out.println(maximumSubarray(arr, 3));
+//        System.out.println(twoPointers(arr, 5));
+
 
 
 
         for (int j : arr) {
             System.out.print(j + " ");
         }
-        System.out.println();
-        for (int j : result) {
-            System.out.print(j + " ");
-        }
+//        System.out.println();
+//        for (int j : result) {
+//            System.out.print(j + " ");
+//        }
     }
 }
