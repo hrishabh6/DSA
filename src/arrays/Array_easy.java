@@ -247,6 +247,9 @@ public class Array_easy {
     }
 
 
+
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -280,6 +283,8 @@ public class Array_easy {
 //        System.out.println(numberAppearingTwice(arr));
 //        System.out.println(maximumSubarray(arr, 3));
 //        System.out.println(twoPointers(arr, 5));
+//        System.out.println(twoSum(arr, 5));
+
 
 
 
