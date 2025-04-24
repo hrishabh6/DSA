@@ -2,8 +2,7 @@ package arrays;
 
 import recurrsion.Reccursions;
 
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class Array_med {
     static boolean twoSum(int[] arr, int n){
@@ -11,6 +10,7 @@ public class Array_med {
         for (int i = 0; i < arr.length; i++) {
             int requiredNumber = n - arr[i];
             if (tempHashMap.containsKey(requiredNumber)) {
+
                 return true;  // Found the pair
             }
             tempHashMap.put(arr[i], i);  // Store the current number
@@ -91,6 +91,112 @@ public class Array_med {
         return maxProfit;
     }
 
+    static int[] rearrangeArray(int[] arr){
+        int posIndex = 0, negIndex = 1;
+        int[] arr2 = new int[arr.length];
+        for (int j : arr) {
+            if (j > 0) {
+                arr2[posIndex] = j;
+                posIndex += 2;
+            } else {
+                arr2[negIndex] = j;
+                negIndex += 2;
+            }
+        }
+        return arr2;
+    }
+
+    //Second variety of rearranging array
+    static int[] rearrange(int[] arr){
+        ArrayList <Integer> posArray = null, negArray = new ArrayList<>();
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] >= 0 ) posArray.add(arr[i]);
+            else negArray.add(arr[i]);
+        }
+        if (posArray.size() > negArray.size()){
+            for (int i = 0; i < negArray.size(); i++) {
+                arr[i*2] = posArray.get(i);
+                arr[i*2+1] = posArray.get(i);
+            }
+            int index = negArray.size() * 2;
+            for (int i = negArray.size(); i < posArray.size(); i++) {
+                arr[index] = posArray.get(i);
+            }
+        }
+        else {
+            for (int i = 0; i < posArray.size(); i++) {
+                arr[i*2] = posArray.get(i);
+                arr[i*2+1] = posArray.get(i);
+            }
+            int index = posArray.size() * 2;
+            for (int i = posArray.size(); i < negArray.size(); i++) {
+                arr[index] = negArray.get(i);
+            }
+        }
+        return arr;
+    }
+    
+    public void nextPermutation(int[] arr){
+        int index = -1;
+        for (int i = arr.length - 2 ; i >= 0; i--) {
+            if (arr[i] < arr[i+1]){
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) {
+            // If no pivot found, reverse the whole array (it's the last permutation)
+            Array_easy.reverseArray(arr, 0, arr.length - 1);
+            return;
+        }
+        for (int i = arr.length - 1; i > index ; i--) {
+            if (arr[i] > arr[index]){
+                Reccursions.swap(arr, i, index);
+                break;
+            }
+        }
+        Array_easy.reverseArray(arr, index + 1, arr.length -1);
+    }
+
+     static ArrayList<Integer> leader(int[] arr){
+        int maximum = Integer.MIN_VALUE;
+        ArrayList<Integer> answer = new ArrayList<>();
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (arr[i] > maximum){
+                maximum = arr[i];
+                answer.add(arr[i]);
+            }
+        }
+            Collections.reverse(answer);
+            return answer;
+    }
+
+    static int longestConsecutive(int[] arr) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : arr) {
+            set.add(num);
+        }
+
+        int longest = 0;
+
+        for (int num : arr) {
+            // Only start if it's the beginning of a sequence
+            if (!set.contains(num - 1)) {
+                int currentNum = num;
+                int currentStreak = 1;
+
+                while (set.contains(currentNum + 1)) {
+                    currentNum++;
+                    currentStreak++;
+                }
+
+                longest = Math.max(longest, currentStreak);
+            }
+        }
+
+        return longest;
+    }
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -113,14 +219,15 @@ public class Array_med {
 //        System.out.println(twoSum(arr, 5));
 //        sortZeroOneTwosArray(arr);
 //        System.out.println(majorityElement(arr));
-        System.out.println(buySellStocks(arr));
+//        System.out.println(buySellStocks(arr));
+        ArrayList<Integer> list = leader(arr);
 
         for (int j : arr) {
             System.out.print(j + " ");
         }
-//        System.out.println();
-//        for (int j : result) {
-//            System.out.print(j + " ");
-//        }
+        System.out.println();
+        for (int j : list) {
+            System.out.print(j + " ");
+        }
     }
 }
