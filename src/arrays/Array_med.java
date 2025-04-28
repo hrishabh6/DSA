@@ -280,6 +280,61 @@ public class Array_med {
         return answer;
     }
 
+    static int subarraySum(int[] nums, int k) {
+        HashMap<Integer, Integer> answer = new HashMap<>();
+        int count = 0, sum = 0;
+        answer.put(0, 1); // This is important to handle the case where sum directly equals k
+
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+
+            // Check if there is a subarray sum that equals sum - k
+            if (answer.containsKey(sum - k)) {
+                count += answer.get(sum - k);
+            }
+
+            // Update the map with the current sum's frequency
+            answer.put(sum, answer.getOrDefault(sum, 0) + 1);
+        }
+
+        return count;
+    }
+
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> triangle = new ArrayList<>();
+
+        // Edge case: if numRows is 0, return an empty list
+        if (numRows == 0) {
+            return triangle;
+        }
+
+        // The first row is always [1]
+        triangle.add(new ArrayList<>());
+        triangle.getFirst().add(1);
+
+        // Generate each row
+        for (int i = 1; i < numRows; i++) {
+            List<Integer> row = new ArrayList<>();
+
+            // First element is always 1
+            row.add(1);
+
+            // Add middle elements
+            for (int j = 1; j < i; j++) {
+                int sum = triangle.get(i - 1).get(j - 1) + triangle.get(i - 1).get(j);
+                row.add(sum);
+            }
+
+            // Last element is always 1
+            row.add(1);
+
+            // Add the row to the triangle
+            triangle.add(row);
+        }
+
+        return triangle;
+    }
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
