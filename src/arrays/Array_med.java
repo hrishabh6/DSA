@@ -196,6 +196,89 @@ public class Array_med {
 
         return longest;
     }
+    
+    static void zeroMatrix(int[][] arr){
+        int col0 = 1;
+        int n = arr.length;
+        int m = arr[0].length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (arr[i][j] == 0){
+                    arr[i][0] = 0;
+                    if (j != 0) arr[0][j] = 0;
+                    else col0 = 0;
+                }
+            }
+        }
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < m; j++) {
+                if (arr[i][0] == 0 || arr[0][j] == 0){
+                    arr[i][j] = 0;
+                }
+            }
+        }
+        if (arr[0][0] == 0){
+            for (int i = 0; i < n; i++) {
+                arr[0][i] = 0;
+
+            }
+        }if (col0 == 0){
+            for (int i = 0; i < m; i++) {
+                arr[i][0] = 0;
+            }
+        }
+    }
+
+    static void rotateMatrix(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = i; j < matrix[0].length; j++) {
+                int temp = 0;
+                temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length / 2; j++) {
+                int temp = 0;
+                temp = matrix[i][j];
+                matrix[i][j] = matrix[i][matrix.length - 1 - j];
+                matrix[i][matrix.length - 1 - j] = temp;
+            }
+        }
+    }
+
+    static List<Integer> spiralOrder(int[][] matrix) {
+        int n = matrix.length, m = matrix[0].length;
+        List<Integer> answer = new ArrayList<>();
+        int top = 0, bottom = n-1;
+        int left = 0, right = m-1;
+        while(top <= bottom && left <= right){
+            //print for right
+            for (int i = left; i <= right; i++) {
+                answer.add(matrix[top][i]);
+            }
+            top++;
+            for (int i = top; i < bottom ; i++) {
+                answer.add(matrix[i][right]);
+            }
+            right--;
+            if (top <= bottom){
+                for (int i = right; i > left ; i--) {
+                    answer.add(matrix[bottom][i]);
+                }
+                bottom--;
+            }
+            if (left <= right){
+                for (int i = bottom; i > top ; i--) {
+                    answer.add(matrix[i][left]);
+                }
+                left++;
+            }
+
+        }
+        return answer;
+    }
 
 
     public static void main(String[] args) {
@@ -230,4 +313,5 @@ public class Array_med {
             System.out.print(j + " ");
         }
     }
+
 }
