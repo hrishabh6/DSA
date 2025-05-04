@@ -18,7 +18,7 @@ public class Array_med {
         return false;  // No pair found
     }
     
-    //Deutch National Flag algorithm
+    //Dutch National Flag algorithm
     static void sortZeroOneTwosArray(int[] arr){
         int low = 0, mid = 0, high = arr.length - 1;
         while (mid <= high){
@@ -57,7 +57,7 @@ public class Array_med {
         return -1;
     }
 
-    //kadane's algo for finding maximum subarray sum
+    //kadane's algo for finding maximum sub array sum
     static int maximumSubarraySum(int[] arr){
         int max = Integer.MIN_VALUE;
         int sum = 0;

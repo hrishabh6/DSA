@@ -17,7 +17,7 @@ This repo contains my personal solutions to a wide range of DSA problems, implem
 
 ## 🔧 Technologies Used
 - Java (JDK 17+)
-- VS Code / IntelliJ IDEA
+- IntelliJ IDEA
 - Git for version control
 
 ---
