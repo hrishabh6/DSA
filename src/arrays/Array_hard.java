@@ -101,7 +101,7 @@ public class Array_hard {
         }
         return answer;
     }
-
+    //Largest subarray with 0 sum
     static int maxLen(int arr[]) {
         int maximum = 0;
         int sum = 0;
@@ -119,6 +119,21 @@ public class Array_hard {
             }
         }
         return maximum;
+    }
+
+    static long subarrayXor(int arr[], int k) {
+        HashMap <Integer, Integer> temp = new HashMap<>();
+        temp.put(0, 1);
+        long count = 0;
+        int xor = 0;
+        for (int j : arr) {
+            xor ^= j;
+            count += temp.getOrDefault(xor ^ k, 0);
+            temp.put(xor, temp.getOrDefault(xor, 0) + 1);
+        }
+
+        return count;
+
     }
 
     public static void main(String[] args) {
