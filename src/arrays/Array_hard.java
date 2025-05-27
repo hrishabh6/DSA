@@ -136,6 +136,52 @@ public class Array_hard {
 
     }
 
+    static int[][] merge(int[][] intervals) {
+        if (intervals.length <= 1) return intervals;
+
+        // Sort intervals based on starting time
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+
+        List<int[]> merged = new ArrayList<>();
+        int[] current = intervals[0];
+
+        for (int i = 1; i < intervals.length; i++) {
+            int[] next = intervals[i];
+            if (current[1] >= next[0]) {
+
+                current[1] = Math.max(current[1], next[1]);
+            } else {
+                merged.add(current);
+                current = next;
+            }
+        }
+
+        merged.add(current);
+
+        return merged.toArray(new int[merged.size()][]);
+    }
+
+    static List<Integer> findMissingRepeating(int[] arr){
+        int n = arr.length;
+        long SN = ((long) n *(n+1))/2;
+        long S2N = (n * (n+1) * (2L *n+1))/2;
+        long S1 = 0, S2 = 0;
+        for (int j : arr) {
+            S1 += j;
+            S2 += (long) j * j;
+        }
+        long val1 = S1 - SN;
+        long val2 = S2 - S2N;
+        val2 = val2/val1; //x+y;
+        long x = (val1+val2)/2;
+        long y = x - val1;
+        List<Integer> answer = new ArrayList<>();
+        answer.add((int) x);
+        answer.add((int) y);
+        return answer;
+    }
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
